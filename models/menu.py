@@ -23,7 +23,7 @@ response.google_analytics_id = None
 #########################################################################
 
 response.menu = [
-    (T('Home'), False, URL('default','index'), [])
+    (T('Home'), False, URL('default', 'index'), [])
     ]
 
 #########################################################################
@@ -37,8 +37,6 @@ def _():
     # useful links to internal and external resources
     response.menu+=[
         (SPAN('XCPADMIN',_style='color:yellow'),False, None, [
-                (T('LIS TVM'),False,URL(app,'listvm','index')),
-                (T('LIST SERVER'),False,URL(app,'listvm','index')),
                 (T('ADD SERVER'),False,URL(app,'listvm','index')),
                 ]
          )]
