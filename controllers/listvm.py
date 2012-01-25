@@ -3,6 +3,7 @@
 
 from XCP import xcp_data
 
+@auth.requires_login()
 def index():
     response.title = "XCP ADMIN"
     vmrecord = xcp_data(url='192.168.20.192', password='123456')
