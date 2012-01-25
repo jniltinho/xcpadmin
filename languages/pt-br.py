@@ -91,6 +91,7 @@
 'New password': 'New password',
 'No databases in this application': 'Sem bancos de dados nesta aplicação',
 'Not authorized': 'Not authorized',
+'Não pode ser vazio': 'Não pode ser vazio',
 'Object or table name': 'Object or table name',
 'Old password': 'Old password',
 'Online examples': 'Alguns exemplos',

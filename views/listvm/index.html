@@ -7,7 +7,7 @@
 <div class="treeheader">&nbsp;</div>
 
 <ul class="treeview" id="tree">
-    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>POOL SERVER</strong></a>
+    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>Host Operations</strong></a>
     <ul style="display: none;">
         {{for row in table:}}
         {{if (table[row]["is_control_domain"]):}}
@@ -16,7 +16,7 @@
         {{pass}}
     </ul>
     </li>
-    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>VMs</strong></a>
+    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>VM Operations</strong></a>
     <ul style="display: none;">
     {{for row in table:}}
     {{if not(table[row]["is_a_template"]) and not(table[row]["is_control_domain"]):}}

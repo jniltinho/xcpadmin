@@ -3,11 +3,17 @@
 
 {{if 'message' in globals():}}
 
+<div class="container">
 
-<div>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Sobre o XCPADMIN</a></li>
+        <li><a href="#tabs-2">Teste de TAB</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p>
+        This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
 
-This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
-</br>
 Xen itself is the underlying virtualization software.
 It's the hypervisor component that actually runs the virtual guest machines. It has been used by many projects and packaged in many ways. It can be installed and run on many *nix operating systems, for example as a Linux package installed with apt on Ubuntu. There's a very nice explanation with further details on the Xen Wikipedia page.
 
@@ -19,7 +25,19 @@ After installation, many users choose to use Citrix XenCenter for management as 
 
 If you have existing physical machines or VMs from other hypervisors, you can import them into XCP.
 
+This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
+Xen itself is the underlying virtualization software.
+It's the hypervisor component that actually runs the virtual guest machines. It has been used by many projects and packaged in many ways. It can be installed and run on many *nix operating systems, for example as a Linux package installed with apt on Ubuntu. There's a very nice explanation with further details on the Xen Wikipedia page.
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+    </div>
+    
 </div>
+</div>
+
+
 {{else:}}
 {{=BEAUTIFY(response._vars)}}
 {{pass}}

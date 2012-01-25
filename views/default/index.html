@@ -3,33 +3,41 @@
 
 {{if 'message' in globals():}}
 
+<div class="xcp_tab">
 
-<div>
-<p>
-This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
-</p>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Sobre o XCPADMIN</a></li>
+        <li><a href="#tabs-2">Teste de TAB</a></li>
+    </ul>
+    <div id="tabs-1">
+        <p>
+        This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
 
-<p>
 Xen itself is the underlying virtualization software.
 It's the hypervisor component that actually runs the virtual guest machines. It has been used by many projects and packaged in many ways. It can be installed and run on many *nix operating systems, for example as a Linux package installed with apt on Ubuntu. There's a very nice explanation with further details on the Xen Wikipedia page.
-</p>
 
-<p>
 Xen Cloud Platform (XCP) was originally derived from the commercial Citrix XenServer. The current release, v1.0, was derived from XenServer 5.6 FP1. XCP, however, is completely free and open source.
-</p>
 
-<p>
 XCP 1.0 is a packaged up version of Linux CentOS 5 (Linux kernel v2.6.32), combined together with Xen 3.4.2, and a web service API called XenAPI that provides a management API for the Xen components intended to be used by various Management Tools. XCP comes as a bootable ISO that allows you to quickly get a bare-metal machine running as a virtualization server (this is comparable to VMware ESXi). Basically you download the ISO, boot/install it on a fresh machine (likely using the whole available hard drive), configure the network from the very brief administrative interface that stays on the screen after installation, and then usually continue managing the server over the network using CLI tools, or a GUI management tool. Now you can start installing and running supported guest VMS using paravirtualization or hardware virtualization. You can run hardware virtualization (HVM) only if your machine has the necessary hardware to support it, otherwise any CPU can run paravirtualization (PV), but it just limits you to the specifically support OSes and kernel versions of those OSes that support PV.
-</p>
 
-<p>
 After installation, many users choose to use Citrix XenCenter for management as it is a stable and mature tool. If you're not interested in a GUI, you can SSH to the XCP server itself, and run the built-in command line tools (xe and xl) as described on the Management Tools and Command Line Interface pages. You can also install the management CLI on a separate Linux box.
-</p>
 
-<p>
 If you have existing physical machines or VMs from other hypervisors, you can import them into XCP.
-</p>
+
+This introduction is intended as a simple explanation for those unfamiliar with Xen, XenServer, and XCP.
+Xen itself is the underlying virtualization software.
+It's the hypervisor component that actually runs the virtual guest machines. It has been used by many projects and packaged in many ways. It can be installed and run on many *nix operating systems, for example as a Linux package installed with apt on Ubuntu. There's a very nice explanation with further details on the Xen Wikipedia page.
+        </p>
+    </div>
+    <div id="tabs-2">
+        <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+    </div>
+    
 </div>
+</div>
+
+
 {{else:}}
 {{=BEAUTIFY(response._vars)}}
 {{pass}}
