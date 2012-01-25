@@ -1,0 +1,41 @@
+{{extend 'layout.html'}}
+
+
+
+<div id="sidetree">
+<div class="treeheader">&nbsp;</div>
+
+<ul class="treeview" id="tree">
+    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>POOL SERVER</strong></a>
+    <ul style="display: none;">
+        {{for row in table:}}
+        {{if (table[row]["is_control_domain"]):}}
+        <l>{{=table[row]["name_label"]}}</li>
+        {{pass}}
+        {{pass}}
+    </ul>
+    </li>
+    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>VMs</strong></a>
+    <ul style="display: none;">
+    {{for row in table:}}
+    {{if not(table[row]["is_a_template"]) and not(table[row]["is_control_domain"]):}}
+    <li>{{=table[row]["name_label"]}} RAM:{{=table[row]["memory_static_max"]}}MB UUID:{{=table[row]["uuid"]}} STATUS:{{=table[row]["power_state"]}}</li>
+    {{pass}}
+    {{pass}}
+    </ul>
+    </li>
+    
+    <li class="expandable"><div class="hitarea expandable-hitarea"></div><a href="#"><strong>Templates</strong></a>
+    <ul style="display: none;">
+    {{for row in table:}}
+    {{if (table[row]["is_a_template"]) and not(table[row]["is_control_domain"]):}}
+    <li>{{=table[row]["name_label"]}}</li>
+    {{pass}}
+    {{pass}}
+    </ul>
+    </li>
+  
+</ul>
+</div>
+
+</div>
