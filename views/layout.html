@@ -99,23 +99,23 @@
     <div class="header">
       <div class="container">         
         <div class="sixteen columns">
-          <h1 class="remove-bottom" style="margin-top: .5em;">
-          {{=response.title or request.application}}
-          </h1>
-          <h5>{{=response.subtitle or ''}}</h5>
-        </div>
-        <div class="sixteen columns">
+
           <div class="statusbar clearfix">
             {{block statusbar}}
-            <div class="breadcrumbs">{{=request.function.replace('_', ' ').title()}}</div>
+             {{=A(T("Provisioning"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
+             {{=A(T("VM Operations"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
+             {{=A(T("Host Operations"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
+             {{=A(T("Pool Operations"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
+             {{=A(T("Storage Operations"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
+             {{=A(T("Network Operations"), _href=URL(request.application, 'listvm','index'), _class='button', _style='margin-top: 0.2em;')}}
             {{end}}
-            <!-- AddToAny BEGIN -->
-            <div style="float:right; padding-top: .25em;" class="a2a_kit a2a_default_style">
-            <a class="a2a_dd" href="http://www.addtoany.com/share_save">Share</a></div>
-            <script type="text/javascript" src="http://static.addtoany.com/menu/page.js"></script>
-            <!-- AddToAny END -->
           </div>
+
+
         </div>
+        
+        
+
       </div>
     </div>
 
