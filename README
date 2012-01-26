@@ -1,3 +1,10 @@
 XCPADMIN
 
 Web Manager XCP
+
+
+## Algumas dicas
+## Conectando via VNC
+## http://blogs.citrix.com/2011/02/18/using-vnc-to-connect-to-a-xenserver-vms-console/
+## http://docs.vmd.citrix.com/XenServer/5.6.0fp1/1.0/en_gb/sdk.html#retrieving_vnc_consoles_with_api
+
