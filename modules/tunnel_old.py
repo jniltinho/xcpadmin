@@ -7,27 +7,26 @@ class Tunnel:
     def __init__(self, session, location):
         self.client_fd = None
         self.server_fd= None
-        self.ref = location[location.find("/", 8):]
+        self.ref = location[location.find("/", 8):] 
         self.session = session
-        self.ip = location[8:location.find("/", 8)]
+        self.ip = location[8:location.find("/", 8)] 
         self.halt = False
         self.translate = False
         self.key = None
-        self.java = True
-        
     def listen(self, port=None):
-        self.port = port
         sock = socket.socket()
-        sock.bind(("0.0.0.0", port))
+        sock.bind(("127.0.0.1", port))
         sock.listen(1)
         self.client_fd, addr = sock.accept()
         self.server_fd  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_fd.connect((self.ip, 80))
+        # self.server_fd.send("CONNECT /console?ref=%s&session_id=%s HTTP/1.1\r\n\r\n" % (self.ref, self.session))
         self.server_fd.send("CONNECT %s&session_id=%s HTTP/1.1\r\n\r\n" % (self.ref, self.session))
         data = self.server_fd.recv(17)
         data = self.server_fd.recv(24)
         data = self.server_fd.recv(35)
         data = self.server_fd.recv(2)
+        self.server_fd.setblocking(0)
         Thread(target=self.read_from_server, args=()).start()
         try:
             codes = ["\x39", "\x02", "\x28", "\x04", "\x05", "\x06", "\x08", "\x28", #/*  !"#$%&' */
@@ -59,7 +58,7 @@ class Tunnel:
             from struct import pack
             data = self.client_fd.recv(1024)
             while data and self.halt == False:
-                if ord(data[0]) == 4 and self.translate and self.java == True:
+                if ord(data[0]) == 4 and self.translate:
                     if ord(data[7]) > 32 and ord(data[7]) < 127 and ord(data[7]) not in range(80, 91):
                         if self.key:
                             data = "\xfe" + data[1:7] + chr(int(self.key,16))
@@ -67,7 +66,6 @@ class Tunnel:
                             data = "\xfe" + data[1:7] + codes[ord(data[7])-32]
                 self.server_fd.send(data)
                 data = self.client_fd.recv(1024)
-            self.close()
         except:
             if self.halt == False:
                  print "Unexpected error:", sys.exc_info()
@@ -75,16 +73,13 @@ class Tunnel:
             else:
                  pass
 
+        self.client_fd.close()
     def get_free_port(self):
         sock = socket.socket()
-        for i in range(8081, 8091):
-            try:
-                sock.bind(("0.0.0.0", i))
-                sock.close()
-            except socket.error, msg:
-                continue
-
-            return i 
+        sock.bind(("127.0.0.1", 0))
+        (host, port) = sock.getsockname()
+        sock.close()
+        return port
 
     def send_data(self, data):
         self.server_fd.send(data)
@@ -92,33 +87,30 @@ class Tunnel:
     def read_from_server(self):
         try:
             while self.halt == False:
-                ready_to_read, ready_to_write, in_error = select.select([self.server_fd], [], [])
-                if self.server_fd in ready_to_read:
-                    data = self.server_fd.recv(1024)
-                    if "XenServer Virtual Terminal" in data:
-                        self.translate = False
-                        data = data[:7] + "\x00" + data[8:]
-                    elif "+HVMXEN-" in data:
-                        self.translate = True
-                        data = data[:7] + "\x00" + data[8:]
-                    self.client_fd.send(data)
+                 ready_to_read, ready_to_write, in_error = select.select([self.server_fd], [], [])
+                 if self.server_fd in ready_to_read:
+                     data = self.server_fd.recv(1024)
+                     if "XenServer Virtual Terminal" in data:
+                         self.translate = False
+                         data = data[:7] + "\x00" + data[8:]
+                     elif "+HVMXEN-" in data:
+                         self.translate = True 
+                         data = data[:7] + "\x00" + data[8:]
+                     self.client_fd.send(data)
         except:
             if self.halt == False:
                  print "Unexpected error:", sys.exc_info()
                  print traceback.print_exc()
             else:
                  pass
+        self.server_fd.close()
 
     def close(self):
         try:
-            print "Closing VNC...."
             self.halt = True
             self.client_fd.send("close\n")
-            self.client_fd.close()
+            self.client_fd.send("close\n")
             self.server_fd.send("close\n")
-            self.server_fd.send("close\n")
-            self.server_fd.close()
-            print "VNC closed...."
             del self
         except:
             pass
